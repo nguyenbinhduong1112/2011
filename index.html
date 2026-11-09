@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Danh Sách Thiệp Chúc Mừng</title>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Be Vietnam Pro', sans-serif;
+      background-color: #1a1a1a;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+      color: #ffb3d4;
+      margin-bottom: 30px;
+    }
+    .gallery {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      gap: 15px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .card-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 3/4;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+      border: 2px solid transparent;
+      display: block; /* Giúp thẻ <a> bọc trọn vẹn không gian */
+      
+      /* SỬA LỖI MÀU CHỮ Ở ĐÂY */
+      color: #ffffff; /* Ép chữ thành màu trắng */
+      text-decoration: none; /* Bỏ gạch chân của đường link */
+    }
+    .card-item:hover {
+      transform: scale(1.05);
+      border-color: #ff6fae;
+    }
+    .card-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .card-number {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      background: rgba(0,0,0,0.7);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kho Thiệp Của Tôi 🌸</h1>
+  
+  <div class="gallery" id="gallery">
+    <!-- Danh sách ảnh sẽ được Javascript tự động tạo ra ở đây -->
+  </div>
+
+  <script>
+    // Danh sách 10 file ảnh của bạn
+    const images = [
+      "chaulinh.jpg",
+      "dangbaotram.jpg",
+      "duckhoa3d.jpg",
+      "khanhlinh.jpg",
+      "khanhngoc.jpg",
+      "khoinguyen3d.jpg",
+      "nguyengiahan.jpg",
+      "nguyenngocbaohan.jpg",
+      "nguyentuankiet.jpg",
+      "phamthaonhi3d.jpg"
+    ];
+
+    const gallery = document.getElementById('gallery');
+
+    // Tự động tạo lưới ảnh, lấy tên file làm tên thiệp luôn cho dễ nhận biết
+    images.forEach((src, index) => {
+      const a = document.createElement('a');
+      a.href = `thiep.html?id=${index}`;
+      a.className = 'card-item';
+      
+      // Cắt bỏ đuôi .jpg để lấy tên hiển thị
+      const displayName = src.replace('.jpg', '');
+      
+      a.innerHTML = `
+        <img src="${src}" alt="${displayName}">
+        <div class="card-number">${displayName}</div>
+      `;
+      gallery.appendChild(a);
+    });
+  </script>
+</body>
+</html>

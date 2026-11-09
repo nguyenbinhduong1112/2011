@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Thiệp Chúc Mừng 🌸 (Bản có nút)</title>
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+      :root { box-sizing: border-box; }
+      
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+        background: #111; 
+      }
+
+      /* NỀN BLUR TRƯỢT KIỂU YOUTUBE MUSIC */
+      .bg-blur {
+        position: fixed;
+        inset: -50px; 
+        z-index: 0;
+        background-size: 150% 150%;
+        background-position: 0% 50%;
+        filter: blur(40px) brightness(0.4);
+        animation: slideBg 30s ease-in-out infinite alternate;
+        pointer-events: none;
+      }
+
+      @keyframes slideBg {
+        0% { background-position: 0% 50%; }
+        100% { background-position: 100% 50%; }
+      }
+      
+      .star {
+        position: fixed;
+        width: 3px;
+        height: 3px;
+        border-radius: 50%;
+        background: #fff;
+        animation: tw 3s infinite alternate;
+        pointer-events: none;
+        z-index: 1;
+      }
+      @keyframes tw {
+        from { opacity: 0.1; }
+        to { opacity: 0.8; box-shadow: 0 0 8px #fff; }
+      }
+
+      /* HIỆU ỨNG BÃO HOA */
+      .flower {
+        position: fixed;
+        bottom: -50px;
+        z-index: 2;
+        pointer-events: none;
+        animation: up linear forwards;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
+        will-change: transform, opacity;
+      }
+      @keyframes up {
+        to { transform: translate3d(var(--dx), -115vh, 0) rotate(var(--rot)); opacity: 0; }
+      }
+
+      /* KHUNG CHỨA ẢNH CHÍNH */
+      .card-viewer {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        filter: drop-shadow(0 15px 40px rgba(0,0,0,0.8));
+      }
+
+      .card-viewer img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain; 
+        opacity: 0;
+        transform: scale(0.9);
+        transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        cursor: pointer;
+      }
+      
+      .card-viewer img.loaded {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      /* =========================================
+         CSS RIÊNG CHO NÚT QUAY LẠI 
+         ========================================= */
+      .back-btn {
+        position: fixed;
+        top: 20px;
+        left: 20px;
+        z-index: 99;
+        background: rgba(0,0,0,0.5);
+        color: white;
+        text-decoration: none;
+        padding: 10px 18px;
+        border-radius: 25px;
+        font-family: 'Be Vietnam Pro', sans-serif;
+        font-size: 14px;
+        font-weight: 600;
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+        border: 1px solid rgba(255,255,255,0.25);
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      }
+      
+      .back-btn:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+    </style>
+  </head>
+  <body>
+    
+    <!-- LỚP NỀN MỜ YOUTUBE STYLE -->
+    <div class="bg-blur" id="bg-blur"></div>
+
+    <!-- NÚT QUAY LẠI -->
+    <a href="index.html" class="back-btn">⬅ Quay lại danh sách</a>
+
+    <div class="card-viewer">
+      <img id="main-image" alt="Thiệp chúc mừng" />
+    </div>
+
+    <script>
+      // Danh sách ảnh
+      const images = [
+        "chaulinh.jpg",
+        "dangbaotram.jpg",
+        "duckhoa3d.jpg",
+        "khanhlinh.jpg",
+        "khanhngoc.jpg",
+        "khoinguyen3d.jpg",
+        "nguyengiahan.jpg",
+        "nguyenngocbaohan.jpg",
+        "nguyentuankiet.jpg",
+        "phamthaonhi3d.jpg"
+      ];
+
+      // Lấy ID từ URL
+      const urlParams = new URLSearchParams(window.location.search);
+      let imgId = parseInt(urlParams.get('id'));
+      
+      if (isNaN(imgId) || imgId < 0 || imgId >= images.length) {
+        imgId = 0; 
+      }
+
+      const imgEl = document.getElementById('main-image');
+      const bgBlur = document.getElementById('bg-blur');
+
+      // Gán URL ảnh cho ảnh chính
+      imgEl.src = images[imgId];
+      
+      // Gán URL ảnh làm nền cho div bg-blur
+      bgBlur.style.backgroundImage = `url('${images[imgId]}')`;
+
+      // Khi ảnh load xong thì hiện lên
+      imgEl.onload = function() {
+        imgEl.classList.add('loaded');
+      };
+
+      // Vẫn giữ tính năng ẩn: Nhấp đúp vào ảnh để quay lại trang chủ (để backup)
+      imgEl.ondblclick = function() {
+        window.location.href = 'index.html';
+      };
+
+      // ================= BÃO HOA & NGÔI SAO =================
+      const R = (a, b) => Math.random() * (b - a) + a;
+      const rnd = (arr) => arr[Math.floor(Math.random() * arr.length)];
+
+      for (let i = 0; i < 50; i++) {
+        const s = document.createElement("div");
+        s.className = "star";
+        s.style.cssText = `left:${R(0, 100)}vw;top:${R(0, 100)}vh;animation-delay:${R(0, 3)}s`;
+        document.body.appendChild(s);
+      }
+
+      const FLOWERS = ["🌸", "🌺", "🌹", "🌷", "🌼", "🌻", "💐", "💮"];
+      function spawnFlower() {
+        const h = document.createElement("div");
+        h.className = "flower";
+        h.textContent = rnd(FLOWERS);
+        const duration = R(7, 15); 
+        h.style.cssText += `
+          left: ${R(0, 100)}vw; 
+          font-size: ${R(18, 48)}px; 
+          animation-duration: ${duration}s; 
+          --dx: ${R(-80, 80)}px; 
+          --rot: ${R(-90, 90)}deg; 
+          opacity: ${R(0.5, 1)}
+        `;
+        document.body.appendChild(h);
+        setTimeout(() => h.remove(), duration * 1000);
+      }
+
+      setInterval(spawnFlower, 300);
+      for (let i = 0; i < 15; i++) setTimeout(spawnFlower, i * 150);
+    </script>
+  </body>
+</html>

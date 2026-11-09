@@ -21,19 +21,15 @@
       /* NỀN BLUR TRƯỢT KIỂU YOUTUBE MUSIC */
       .bg-blur {
         position: fixed;
-        /* Kéo giãn ra ngoài màn hình một chút để viền mờ không bị lộ khoảng trắng */
         inset: -50px; 
         z-index: 0;
-        background-size: 150% 150%; /* Phóng to ảnh nền lên 150% để có không gian trượt */
+        background-size: 150% 150%;
         background-position: 0% 50%;
-        /* Làm mờ cực mạnh (40px) và giảm độ sáng (0.4) để ảnh chính nổi bật hơn */
         filter: blur(40px) brightness(0.4);
-        /* Hiệu ứng trượt qua lại liên tục (30s cho một lượt trượt) */
         animation: slideBg 30s ease-in-out infinite alternate;
         pointer-events: none;
       }
 
-      /* Keyframe điều khiển hướng trượt của nền */
       @keyframes slideBg {
         0% { background-position: 0% 50%; }
         100% { background-position: 100% 50%; }
@@ -58,7 +54,7 @@
       .flower {
         position: fixed;
         bottom: -50px;
-        z-index: 2; /* Bay dưới tấm ảnh, nhưng trên nền mờ */
+        z-index: 2;
         pointer-events: none;
         animation: up linear forwards;
         filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
@@ -78,7 +74,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        filter: drop-shadow(0 15px 40px rgba(0,0,0,0.8)); /* Bóng đen đổ dưới ảnh chính */
+        filter: drop-shadow(0 15px 40px rgba(0,0,0,0.8));
       }
 
       .card-viewer img {
@@ -88,32 +84,12 @@
         opacity: 0;
         transform: scale(0.9);
         transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
+        cursor: pointer; /* Đổi con trỏ chuột để bạn dễ biết là bấm được */
       }
       
       .card-viewer img.loaded {
         opacity: 1;
-        transform: scale(1); /* Hiệu ứng pop up nhẹ khi ảnh load xong */
-      }
-      
-      /* Nút quay lại trang chủ */
-      .back-btn {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        z-index: 99;
-        background: rgba(0,0,0,0.5);
-        color: white;
-        text-decoration: none;
-        padding: 8px 15px;
-        border-radius: 20px;
-        font-family: sans-serif;
-        font-size: 14px;
-        backdrop-filter: blur(5px);
-        border: 1px solid rgba(255,255,255,0.2);
-        transition: background 0.3s;
-      }
-      .back-btn:hover {
-        background: rgba(255, 255, 255, 0.2);
+        transform: scale(1);
       }
     </style>
   </head>
@@ -121,8 +97,6 @@
     
     <!-- LỚP NỀN MỜ YOUTUBE STYLE -->
     <div class="bg-blur" id="bg-blur"></div>
-
-    <a href="index.html" class="back-btn">⬅ Quay lại</a>
 
     <div class="card-viewer">
       <img id="main-image" alt="Thiệp chúc mừng" />
@@ -160,11 +134,15 @@
       // Gán URL ảnh làm nền cho div bg-blur
       bgBlur.style.backgroundImage = `url('${images[imgId]}')`;
 
-      // Khi ảnh chính load xong thì cho hiện lên mượt mà
+      // Khi ảnh load xong thì hiện lên
       imgEl.onload = function() {
         imgEl.classList.add('loaded');
       };
 
+      // TÍNH NĂNG ẨN CHO ADMIN: Nhấp đúp vào ảnh để quay lại trang chủ
+      imgEl.ondblclick = function() {
+        window.location.href = 'index.html';
+      };
 
       // ================= BÃO HOA & NGÔI SAO =================
       const R = (a, b) => Math.random() * (b - a) + a;

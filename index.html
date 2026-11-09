@@ -68,6 +68,7 @@
   </div>
 
   <script>
+    // Danh sách ảnh
     const images = [
       "chaulinh.jpg",
       "dangbaotram.jpg",
@@ -83,11 +84,12 @@
 
     const gallery = document.getElementById('gallery');
 
+    // Tự động tạo lưới ảnh
     images.forEach((src, index) => {
       const a = document.createElement('a');
       
-      // ĐÃ SỬA CHỖ NÀY: Link dẫn tới bản có nút quay lại dành cho Admin
-      a.href = `thiep-admin.html?id=${index}`;
+      // TRANG DANH SÁCH DẪN SANG BẢN CÓ NÚT QUAY LẠI (Dành cho bạn test)
+      a.href = `thiep.html?id=${index}`;
       
       a.className = 'card-item';
       

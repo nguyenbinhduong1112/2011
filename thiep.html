@@ -84,7 +84,6 @@
         opacity: 0;
         transform: scale(0.9);
         transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
-        cursor: pointer; /* Đổi con trỏ chuột để bạn dễ biết là bấm được */
       }
       
       .card-viewer img.loaded {
@@ -98,12 +97,14 @@
     <!-- LỚP NỀN MỜ YOUTUBE STYLE -->
     <div class="bg-blur" id="bg-blur"></div>
 
+    <!-- Hoàn toàn không có nút Quay lại ở đây -->
+
     <div class="card-viewer">
       <img id="main-image" alt="Thiệp chúc mừng" />
     </div>
 
     <script>
-      // Danh sách ảnh
+      // Danh sách ảnh chuẩn
       const images = [
         "chaulinh.jpg",
         "dangbaotram.jpg",
@@ -139,7 +140,7 @@
         imgEl.classList.add('loaded');
       };
 
-      // TÍNH NĂNG ẨN CHO ADMIN: Nhấp đúp vào ảnh để quay lại trang chủ
+      // Vẫn giữ lại tính năng nhấp đúp 2 lần vào ảnh để Admin có đường lui nếu vô tình bấm nhầm
       imgEl.ondblclick = function() {
         window.location.href = 'index.html';
       };

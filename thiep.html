@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>Thiệp Chúc Mừng 🌸</title>
-    
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌸</text></svg>">
 
     <style>
       :root { box-sizing: border-box; }
-      
+
       html, body {
         height: 100%;
         margin: 0;
@@ -18,7 +18,6 @@
         background: #111; 
       }
 
-      /* NỀN BLUR TRƯỢT KIỂU YOUTUBE MUSIC */
       .bg-blur {
         position: fixed;
         inset: -50px; 
@@ -34,7 +33,7 @@
         0% { background-position: 0% 50%; }
         100% { background-position: 100% 50%; }
       }
-      
+
       .star {
         position: fixed;
         width: 3px;
@@ -50,7 +49,6 @@
         to { opacity: 0.8; box-shadow: 0 0 8px #fff; }
       }
 
-      /* HIỆU ỨNG BÃO HOA */
       .flower {
         position: fixed;
         bottom: -50px;
@@ -64,7 +62,6 @@
         to { transform: translate3d(var(--dx), -115vh, 0) rotate(var(--rot)); opacity: 0; }
       }
 
-      /* KHUNG CHỨA ẢNH CHÍNH */
       .card-viewer {
         position: fixed;
         inset: 0;
@@ -85,7 +82,7 @@
         transform: scale(0.9);
         transition: all 0.8s cubic-bezier(0.2, 1, 0.3, 1);
       }
-      
+
       .card-viewer img.loaded {
         opacity: 1;
         transform: scale(1);
@@ -93,18 +90,15 @@
     </style>
   </head>
   <body>
-    
-    <!-- LỚP NỀN MỜ YOUTUBE STYLE -->
-    <div class="bg-blur" id="bg-blur"></div>
 
-    <!-- Hoàn toàn không có nút Quay lại ở đây -->
+    <div class="bg-blur" id="bg-blur"></div>
 
     <div class="card-viewer">
       <img id="main-image" alt="Thiệp chúc mừng" />
     </div>
 
     <script>
-      // Danh sách ảnh chuẩn
+      // Đã thêm 9 ảnh mới vào danh sách
       const images = [
         "chaulinh.jpg",
         "dangbaotram.jpg",
@@ -115,13 +109,21 @@
         "nguyengiahan.jpg",
         "nguyenngocbaohan.jpg",
         "nguyentuankiet.jpg",
-        "phamthaonhi3d.jpg"
+        "phamthaonhi3d.jpg",
+        "bao anh 2.jpg",
+        "tuan minh.jpg",
+        "nguyen hoang bach.jpg",
+        "dinh phong.jpg",
+        "ko ten.jpg",
+        "cao ngoc khanh hung.jpg",
+        "tran tu anh.jpg",
+        "thuy tien.jpg",
+        "triinh duc tuan phong.jpg"
       ];
 
-      // Lấy ID từ URL
       const urlParams = new URLSearchParams(window.location.search);
       let imgId = parseInt(urlParams.get('id'));
-      
+
       if (isNaN(imgId) || imgId < 0 || imgId >= images.length) {
         imgId = 0; 
       }
@@ -129,23 +131,13 @@
       const imgEl = document.getElementById('main-image');
       const bgBlur = document.getElementById('bg-blur');
 
-      // Gán URL ảnh cho ảnh chính
       imgEl.src = images[imgId];
-      
-      // Gán URL ảnh làm nền cho div bg-blur
       bgBlur.style.backgroundImage = `url('${images[imgId]}')`;
 
-      // Khi ảnh load xong thì hiện lên
       imgEl.onload = function() {
         imgEl.classList.add('loaded');
       };
 
-      // Vẫn giữ lại tính năng nhấp đúp 2 lần vào ảnh để Admin có đường lui nếu vô tình bấm nhầm
-      imgEl.ondblclick = function() {
-        window.location.href = 'index.html';
-      };
-
-      // ================= BÃO HOA & NGÔI SAO =================
       const R = (a, b) => Math.random() * (b - a) + a;
       const rnd = (arr) => arr[Math.floor(Math.random() * arr.length)];
 
